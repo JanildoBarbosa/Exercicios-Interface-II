@@ -6,17 +6,17 @@ public class ContractService {
 	
 	public void processContract(Contract contract, Integer months) {
 		
-		LocalDate dueDate;
-		double amount = 0.0;
-		double capital = contract.getTotalValue() / months;
-		double tax = 0.02 * capital;
+		LocalDate dueDate = contract.getDate();
 		
-		for (int i = 0; i < months; i++) {
+		for (int i = 1; i <= months; i++) {		
 			
-			dueDate = contract.getDate().plusDays(30);
+			dueDate = dueDate.plusDays(30);
+			
+			double installment = contract.getTotalValue() / months;
+			double fees = installment * 0.01;
+			double result = installment + fees * i;
+			double amount = result * 1.02; 
 
-			amount = capital + tax * i;
-			
 			contract.setInstallments(new Installment(dueDate, amount));
 			
 		}
