@@ -9,6 +9,7 @@ import java.util.Scanner;
 import model.entities.Contract;
 import model.entities.ContractService;
 import model.entities.Installment;
+import model.entities.PaypalService;
 
 public class Program {
 
@@ -30,12 +31,13 @@ public class Program {
 		double contractValue = sc.nextDouble();
 		
 		System.out.print("Entre com o numero de parcelas: ");
-		int installmentQuantity = sc.nextInt(); 
+		int installmentQuantity = sc.nextInt();
+		
 		Contract contract = new Contract(number, date, contractValue);
 		
 		ContractService contractService = new ContractService();
 		
-		contractService.processContract(contract, installmentQuantity);
+		contractService.processContract(contract, installmentQuantity, new PaypalService());
 
 		System.out.println("Parcelas: ");
 		
@@ -43,8 +45,6 @@ public class Program {
 			System.out.println(dtf.format(installment.getDueDate()) + " - " + installment.getAmount());
 		}
 		
-			
-
 		sc.close();
 
 	}
